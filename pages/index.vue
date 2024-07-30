@@ -1,20 +1,18 @@
 <script setup lang="ts">
-// import {
-//   AlertDialog,
-//   AlertDialogAction,
-//   AlertDialogCancel,
-//   AlertDialogContent,
-//   AlertDialogDescription,
-//   AlertDialogFooter,
-//   AlertDialogHeader,
-//   AlertDialogTitle,
-//   AlertDialogTrigger,
-// } from '@/components/ui/alert-dialog'
-// import { Button } from '@/components/ui/button'
+const data = useData();
 </script>
 
 <template>
   <div class="container">
+    <pre>
+      <!-- {{ data }} -->
+      <!-- {{ usePrograms() }} -->
+      <!-- {{ useUsers() }} -->
+      <!-- {{ useLoanOfficers() }} -->
+      <!-- {{ useProgramImports() }} -->
+      <!-- {{ useRevenue() }} -->
+    </pre>
+
     <AlertDialog>
       <AlertDialogTrigger as-child>
         <Button variant="outline"> Show Dialog </Button>
