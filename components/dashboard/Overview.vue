@@ -17,6 +17,7 @@ const data = [
 
 <template>
   <BarChart
+    class="max-h-[350px]"
     :data="data"
     :categories="['total']"
     :index="'name'"

@@ -50,7 +50,6 @@ const selectedTeam = ref<Team>(groups[0].teams[0]);
             <AvatarFallback>SC</AvatarFallback>
           </Avatar>
           {{ selectedTeam.label }}
-          <!-- <CaretSortIcon class="ml-auto h-4 w-4 shrink-0 opacity-50" /> -->
           <Icon
             icon="radix-icons:caret-sort"
             class="ml-auto h-4 w-4 shrink-0 opacity-50" />
@@ -64,7 +63,6 @@ const selectedTeam = ref<Team>(groups[0].teams[0]);
               list.filter((i) => i.label?.toLowerCase()?.includes(term))
           ">
           <CommandList>
-            <CommandInput placeholder="Search team..." />
             <CommandEmpty>No team found.</CommandEmpty>
             <CommandGroup
               v-for="group in groups"
