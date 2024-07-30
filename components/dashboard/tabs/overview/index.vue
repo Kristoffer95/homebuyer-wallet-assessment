@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import RevenueChart from './revenue-chart.vue';
+import RecentSales from './recent-sales.vue';
+
 const key = ref(0);
 
 function forceUpdate() {
@@ -96,7 +99,6 @@ function forceUpdate() {
       </CardContent>
     </Card>
   </div>
-  <!-- <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-7"> -->
   <div class="flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-7">
     <Card class="col-span-4">
       <CardHeader>
@@ -104,7 +106,7 @@ function forceUpdate() {
         <CardTitle>Overview</CardTitle>
       </CardHeader>
       <CardContent class="pl-2">
-        <DashboardOverview :key />
+        <RevenueChart :key />
       </CardContent>
     </Card>
     <Card class="col-span-3">
@@ -113,7 +115,7 @@ function forceUpdate() {
         <CardDescription> You made 265 sales this month. </CardDescription>
       </CardHeader>
       <CardContent>
-        <DashboardRecentSales />
+        <RecentSales />
       </CardContent>
     </Card>
   </div>
