@@ -22,19 +22,19 @@ import DropdownAction from './data-table-column.vue';
 import { Button } from '@/components/ui/button';
 import { valueUpdater } from '@/lib/utils';
 import { Checkbox } from '~/components/ui/checkbox';
-import { Badge } from '~/components/ui/badge';
+import Badge from '~/components/ui/badge/Badge.vue';
 
-export interface User {
+export interface LoanOfficer {
   id: string;
   name: string;
-  type: string;
+  position: string;
   email: string;
   created_at: string;
 }
 
-const data: User[] = useUsers();
+const data: LoanOfficer[] = useLoanOfficers();
 
-const columns: ColumnDef<User>[] = [
+const columns: ColumnDef<LoanOfficer>[] = [
   {
     id: 'select',
     header: ({ table }) =>
@@ -55,9 +55,14 @@ const columns: ColumnDef<User>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'type',
-    header: 'Type',
-    cell: ({ row }) => h(Badge, { class: 'capitalize' }, row.getValue('type')),
+    accessorKey: 'position',
+    header: 'Position',
+    cell: ({ row }) =>
+      h(
+        Badge,
+        { variant: 'outline', class: 'capitalize' },
+        row.getValue('position')
+      ),
   },
   {
     accessorKey: 'email',
@@ -77,7 +82,7 @@ const columns: ColumnDef<User>[] = [
     accessorKey: 'name',
     header: () => h('div', { class: 'text-right' }, 'Name'),
     cell: ({ row }) =>
-      h('div', { class: 'lowercase text-right' }, row.getValue('name')),
+      h('div', { class: 'capitalize text-right' }, row.getValue('name')),
   },
   {
     id: 'actions',
@@ -222,9 +227,9 @@ const table = useVueTable({
                         </span>
                       </Label>
                       <Label class="flex gap-5">
-                        Type:
+                        Position:
                         <span class="font-normal capitalize">
-                          {{ row.original.type }}
+                          {{ row.original.position }}
                         </span>
                       </Label>
                       <Label class="flex gap-5">

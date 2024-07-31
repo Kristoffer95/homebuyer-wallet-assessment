@@ -22,48 +22,48 @@
 
   "users": [
     {
-      "id": 1,
+      "id": "m5gr84i9",
       "name": "John Doe",
       "email": "john@example.com",
       "type": "buyer",
       "created_at": "2024-01-01"
     },
     {
-      "id": 2,
+      "id": "3u1reuv4",
       "name": "Jane Smith",
       "email": "jane@example.com",
       "type": "seller",
       "created_at": "2024-01-02"
     },
     {
-      "id": 3,
+      "id": "derv1ws0",
       "name": "Alice Johnson",
       "email": "alice@example.com",
-      "type": "agent",
+      "type": "seller",
       "created_at": "2024-01-03"
     }
   ],
 
   "loan_officers": [
     {
-      "id": 1,
+      "id": "m5gr84i90",
       "name": "Tom Brown",
       "email": "tom@example.com",
-      "region": "North",
+      "position": "officer 1",
       "created_at": "2024-01-01"
     },
     {
-      "id": 2,
+      "id": "m5gr84i91",
       "name": "Sarah Davis",
       "email": "sarah@example.com",
-      "region": "South",
+      "position": "officer 2",
       "created_at": "2024-01-02"
     },
     {
-      "id": 3,
+      "id": "m5gr84i92",
       "name": "Michael Green",
       "email": "michael@example.com",
-      "region": "East",
+      "position": "officer 3",
       "created_at": "2024-01-03"
     }
   ],

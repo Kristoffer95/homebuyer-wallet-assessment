@@ -11,6 +11,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@tanstack/vue-table": "^8.19.3",
     "@unovis/ts": "^1.4.3",
     "@unovis/vue": "^1.4.3",
     "@vueuse/core": "^10.11.0",
