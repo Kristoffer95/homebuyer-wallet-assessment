@@ -1,5 +1,8 @@
 <script setup lang="ts">
-const activeTab = ref('overview');
+// const activeTab = ref('overview');
+const activeTab = ref('users');
+// const activeTab = ref('loan_officers');
+// const activeTab = ref('program_imports');
 
 function setSelectedTab(tab: string) {
   activeTab.value = tab;
@@ -43,10 +46,7 @@ const tabItems = ref([
           <Button>Download</Button>
         </div>
       </div>
-      <Tabs
-        default-value="overview"
-        class="space-y-4"
-        v-model:model-value="activeTab">
+      <Tabs class="md:space-y-4" v-model:model-value="activeTab">
         <TabsList class="hidden md:inline-flex">
           <TabsTrigger
             v-for="(item, index) in tabItems"
@@ -69,6 +69,9 @@ const tabItems = ref([
         </TabsContent>
         <TabsContent value="loan_officers" class="space-y-4">
           <DashboardTabsLoanOfficers />
+        </TabsContent>
+        <TabsContent value="program_imports" class="space-y-4">
+          <DashboardTabsProgramImports />
         </TabsContent>
       </Tabs>
     </div>

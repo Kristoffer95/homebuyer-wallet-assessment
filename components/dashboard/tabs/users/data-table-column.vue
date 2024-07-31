@@ -30,9 +30,9 @@ function copy(id: string) {
         Copy payment ID
       </DropdownMenuItem>
       <DropdownMenuItem @click="$emit('expand')"> Expand </DropdownMenuItem>
-      <DropdownMenuSeparator />
+      <!-- <DropdownMenuSeparator />
       <DropdownMenuItem>View customer</DropdownMenuItem>
-      <DropdownMenuItem>View payment details</DropdownMenuItem>
+      <DropdownMenuItem>View payment details</DropdownMenuItem> -->
     </DropdownMenuContent>
   </DropdownMenu>
 </template>

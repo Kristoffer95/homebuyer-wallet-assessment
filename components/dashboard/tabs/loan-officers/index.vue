@@ -23,14 +23,7 @@ import { Button } from '@/components/ui/button';
 import { valueUpdater } from '@/lib/utils';
 import { Checkbox } from '~/components/ui/checkbox';
 import Badge from '~/components/ui/badge/Badge.vue';
-
-export interface LoanOfficer {
-  id: string;
-  name: string;
-  position: string;
-  email: string;
-  created_at: string;
-}
+import type { LoanOfficer } from '~/types/interfaces';
 
 const data: LoanOfficer[] = useLoanOfficers();
 
@@ -60,7 +53,7 @@ const columns: ColumnDef<LoanOfficer>[] = [
     cell: ({ row }) =>
       h(
         Badge,
-        { variant: 'outline', class: 'capitalize' },
+        { variant: 'outline', class: 'capitalize whitespace-nowrap' },
         row.getValue('position')
       ),
   },

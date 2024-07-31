@@ -2,8 +2,8 @@
 import { MoreHorizontal } from 'lucide-vue-next';
 
 defineProps<{
-  user: {
-    id: string;
+  data: {
+    id: string | number;
   };
 }>();
 
@@ -11,8 +11,8 @@ defineEmits<{
   (e: 'expand'): void;
 }>();
 
-function copy(id: string) {
-  navigator.clipboard.writeText(id);
+function copy(id: string | number) {
+  navigator.clipboard.writeText(id.toString());
 }
 </script>
 
@@ -26,12 +26,12 @@ function copy(id: string) {
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end">
       <DropdownMenuLabel>Actions</DropdownMenuLabel>
-      <DropdownMenuItem @click="copy(user.id)">
+      <DropdownMenuItem @click="copy(data.id)">
         Copy payment ID
       </DropdownMenuItem>
       <DropdownMenuItem @click="$emit('expand')"> Expand </DropdownMenuItem>
-      <DropdownMenuSeparator />
-      <!-- <DropdownMenuItem>View customer</DropdownMenuItem>
+      <!-- <DropdownMenuSeparator />
+      <DropdownMenuItem>View customer</DropdownMenuItem>
       <DropdownMenuItem>View payment details</DropdownMenuItem> -->
     </DropdownMenuContent>
   </DropdownMenu>

@@ -23,11 +23,11 @@ import { Button } from '@/components/ui/button';
 import { valueUpdater } from '@/lib/utils';
 import { Checkbox } from '~/components/ui/checkbox';
 import { Badge } from '~/components/ui/badge';
-import type { User, UserType } from '~/types/interfaces';
+import type { ProgramImportExpanded } from '~/types/interfaces';
 
-const data: User[] = useUsers();
+const data = useProgramImports();
 
-const columns: ColumnDef<User>[] = [
+const columns: ColumnDef<ProgramImportExpanded>[] = [
   {
     id: 'select',
     header: ({ table }) =>
@@ -48,41 +48,72 @@ const columns: ColumnDef<User>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'type',
-    header: 'Type',
-    cell: ({ row }) => h(Badge, { class: 'capitalize' }, row.getValue('type')),
-  },
-  {
-    accessorKey: 'email',
-    header: ({ column }) => {
-      return h(
-        Button,
-        {
-          variant: 'ghost',
-          onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
-        },
-        () => ['Email', h(ArrowUpDown, { class: 'ml-2 h-4 w-4' })]
-      );
-    },
-    cell: ({ row }) => h('div', { class: 'lowercase' }, row.getValue('email')),
-  },
-  {
-    accessorKey: 'name',
-    header: () => h('div', { class: 'text-right' }, 'Name'),
+    accessorKey: 'program',
+    header: 'Program',
     cell: ({ row }) =>
-      h('div', { class: 'lowercase text-right' }, row.getValue('name')),
+      h(Badge, { class: 'capitalize' }, () => {
+        return row.original.program.name;
+      }),
+  },
+  {
+    accessorKey: 'details',
+    header: 'Title',
+    cell: ({ row }) =>
+      h('div', { class: 'lowercase capitalize' }, [
+        h('span', {}, row.original.details),
+      ]),
+  },
+  {
+    accessorKey: 'amount',
+    header: 'Amount',
+    cell: ({ row }) =>
+      h('div', { class: 'lowercase capitalize' }, [
+        h('span', {}, `$${row.original.amount}`),
+      ]),
+  },
+  {
+    accessorKey: 'source',
+    header: 'Source',
+    cell: ({ row }) =>
+      h('div', { class: 'lowercase capitalize' }, [
+        h('span', {}, row.original.source),
+      ]),
+  },
+  {
+    accessorKey: 'description',
+    header: 'Description',
+    cell: ({ row }) =>
+      h('div', { class: 'lowercase capitalize' }, [
+        h('span', {}, row.original.description),
+      ]),
+  },
+  {
+    accessorKey: 'loan_officer',
+    header: 'Loan Officer',
+    cell: ({ row }) =>
+      h('div', { class: 'lowercase capitalize' }, [
+        h('span', {}, row.original.loan_officer.name),
+      ]),
+  },
+  {
+    accessorKey: 'user',
+    header: 'User',
+    cell: ({ row }) =>
+      h('div', { class: 'lowercase capitalize' }, [
+        h('span', {}, `${row.original.user.name} | ${row.original.user.type}`),
+      ]),
   },
   {
     id: 'actions',
     enableHiding: false,
     cell: ({ row }) => {
-      const user = row.original;
+      const data = row.original;
 
       return h(
         'div',
         { class: 'relative' },
         h(DropdownAction, {
-          user,
+          data,
           onExpand: row.toggleExpanded,
         })
       );
@@ -131,10 +162,12 @@ const table = useVueTable({
   },
 });
 
-const types = ref(new Set(table.options.data.map(({ type }) => type)));
+const types = ref(
+  new Set(table.options.data.map(({ source }) => source.toLowerCase()))
+);
 const columnFilter = ref(new Set([...types.value]));
 
-function filterType(type: UserType) {
+function filterType(type: string) {
   if (columnFilter.value.has(type)) {
     columnFilter.value.delete(type);
     return;
@@ -151,10 +184,10 @@ function filterType(type: UserType) {
       <div class="flex gap-2 w-full">
         <Input
           class="md:max-w-[200px] w-full"
-          placeholder="Filter emails..."
-          :model-value="table.getColumn('email')?.getFilterValue() as string"
+          placeholder="Filter titles..."
+          :model-value="table.getColumn('details')?.getFilterValue() as string"
           @update:model-value="
-            table.getColumn('email')?.setFilterValue($event)
+            table.getColumn('details')?.setFilterValue($event)
           " />
         <DropdownMenu>
           <DropdownMenuTrigger as-child>
@@ -167,7 +200,7 @@ function filterType(type: UserType) {
               v-for="type in types"
               :key="type"
               class="capitalize"
-              :checked="columnFilter.has(type)"
+              :checked="columnFilter.has(type.toLocaleLowerCase())"
               @click="filterType(type)">
               {{ type }}
             </DropdownMenuCheckboxItem>
@@ -239,7 +272,7 @@ function filterType(type: UserType) {
                     ? row
                         .getVisibleCells()
                         .filter((user) =>
-                          columnFilter.has(user.row.original.type)
+                          columnFilter.has(user.row.original.source)
                         )
                     : []"
                   :key="cell.id">
@@ -251,8 +284,8 @@ function filterType(type: UserType) {
               <TableRow v-if="row.getIsExpanded()">
                 <TableCell :colspan="row.getAllCells().length">
                   <Card class="p-4 border-none shadow-none">
-                    <CardTitle class="text-lg"> Details </CardTitle>
-                    <CardDescription> User details </CardDescription>
+                    <CardTitle class="text-lg"> Program Import </CardTitle>
+                    <CardDescription> Program Import details </CardDescription>
                     <CardContent class="mt-8 flex flex-col gap-6 px-0">
                       <Label class="flex gap-5">
                         ID:
@@ -261,27 +294,75 @@ function filterType(type: UserType) {
                         </span>
                       </Label>
                       <Label class="flex gap-5">
-                        Name:
+                        Title:
                         <span class="font-normal">
-                          {{ row.original.name }}
+                          {{ row.original.details }}
                         </span>
                       </Label>
                       <Label class="flex gap-5">
-                        Email:
+                        Description:
                         <span class="font-normal">
-                          {{ row.original.email }}
-                        </span>
-                      </Label>
-                      <Label class="flex gap-5">
-                        Type:
-                        <span class="font-normal capitalize">
-                          {{ row.original.type }}
+                          {{ row.original.description }}
                         </span>
                       </Label>
                       <Label class="flex gap-5">
                         Created Date:
                         <span class="font-normal">
                           {{ row.original.created_at }}
+                        </span>
+                      </Label>
+
+                      <Separator class="my-4" label="User Details" />
+
+                      <Label class="flex gap-5">
+                        ID:
+                        <span class="font-normal capitalize">
+                          {{ row.original.user.id }}
+                        </span>
+                      </Label>
+                      <Label class="flex gap-5">
+                        Email:
+                        <span class="font-normal capitalize">
+                          {{ row.original.user.email }}
+                        </span>
+                      </Label>
+                      <Label class="flex gap-5">
+                        Name:
+                        <span class="font-normal capitalize">
+                          {{ row.original.user.name }}
+                        </span>
+                      </Label>
+                      <Label class="flex gap-5">
+                        Type:
+                        <span class="font-normal capitalize">
+                          {{ row.original.user.type }}
+                        </span>
+                      </Label>
+
+                      <Separator class="my-4" label="Loan Officer Details" />
+
+                      <Label class="flex gap-5">
+                        ID:
+                        <span class="font-normal capitalize">
+                          {{ row.original.loan_officer.id }}
+                        </span>
+                      </Label>
+                      <Label class="flex gap-5">
+                        Email:
+                        <span class="font-normal capitalize">
+                          {{ row.original.loan_officer.email }}
+                        </span>
+                      </Label>
+                      <Label class="flex gap-5">
+                        Name:
+                        <span class="font-normal capitalize">
+                          {{ row.original.loan_officer.name }}
+                        </span>
+                      </Label>
+                      <Label class="flex gap-5">
+                        Position:
+                        <span class="font-normal capitalize">
+                          {{ row.original.loan_officer.position }}
                         </span>
                       </Label>
                     </CardContent>

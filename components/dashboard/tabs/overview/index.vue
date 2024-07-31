@@ -29,13 +29,14 @@ function forceUpdate() {
       </CardHeader>
       <CardContent>
         <div class="text-2xl font-bold">$45,231.89</div>
-        <p class="text-xs text-muted-foreground">+20.1% from last month</p>
+        <!-- <p class="text-xs text-muted-foreground">+20.1% from last month</p> -->
       </CardContent>
     </Card>
+
     <Card>
       <CardHeader
         class="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle class="text-sm font-medium"> Subscriptions </CardTitle>
+        <CardTitle class="text-sm font-medium"> Sales </CardTitle>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -52,13 +53,14 @@ function forceUpdate() {
       </CardHeader>
       <CardContent>
         <div class="text-2xl font-bold">+2350</div>
-        <p class="text-xs text-muted-foreground">+180.1% from last month</p>
+        <!-- <p class="text-xs text-muted-foreground">+180.1% from last month</p> -->
       </CardContent>
     </Card>
+
     <Card>
       <CardHeader
         class="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle class="text-sm font-medium"> Sales </CardTitle>
+        <CardTitle class="text-sm font-medium"> Rentals </CardTitle>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -74,13 +76,14 @@ function forceUpdate() {
       </CardHeader>
       <CardContent>
         <div class="text-2xl font-bold">+12,234</div>
-        <p class="text-xs text-muted-foreground">+19% from last month</p>
+        <!-- <p class="text-xs text-muted-foreground">+19% from last month</p> -->
       </CardContent>
     </Card>
+
     <Card>
       <CardHeader
         class="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle class="text-sm font-medium"> Active Now </CardTitle>
+        <CardTitle class="text-sm font-medium"> Loan </CardTitle>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -95,15 +98,15 @@ function forceUpdate() {
       </CardHeader>
       <CardContent>
         <div class="text-2xl font-bold">+573</div>
-        <p class="text-xs text-muted-foreground">+201 since last hour</p>
+        <!-- <p class="text-xs text-muted-foreground">+201 since last hour</p> -->
       </CardContent>
     </Card>
   </div>
   <div class="flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-7">
     <Card class="col-span-4">
+      <Button @click="forceUpdate()"> Reload component </Button>
       <CardHeader>
-        <Button @click="forceUpdate()"> Reload component </Button>
-        <CardTitle>Overview</CardTitle>
+        <CardTitle>Revenue Graph</CardTitle>
       </CardHeader>
       <CardContent class="pl-2">
         <RevenueChart :key />
