@@ -42,6 +42,7 @@ export const useProgramImports = (): ProgramImportExpanded[] => {
         amount: programImport.amount,
         source: programImport.source,
         created_at: programImport.created_at,
+        status: programImport.status,
         user,
         program,
         loan_officer,

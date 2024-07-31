@@ -60,7 +60,7 @@ function forceUpdate() {
     <Card>
       <CardHeader
         class="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle class="text-sm font-medium"> Rentals </CardTitle>
+        <CardTitle class="text-sm font-medium"> Services </CardTitle>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"

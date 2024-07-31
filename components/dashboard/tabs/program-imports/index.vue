@@ -88,11 +88,11 @@ const columns: ColumnDef<ProgramImportExpanded>[] = [
       ]),
   },
   {
-    accessorKey: 'loan_officer',
-    header: 'Loan Officer',
+    accessorKey: 'status',
+    header: 'Status',
     cell: ({ row }) =>
       h('div', { class: 'lowercase capitalize' }, [
-        h('span', {}, row.original.loan_officer.name),
+        h('span', {}, row.original.status),
       ]),
   },
   {

@@ -32,6 +32,7 @@ export interface ProgramImport {
   program_id: number;
   user_id: string;
   loan_officer_id: string;
+  status: 'sold' | 'available';
   description: string;
   details: string;
   amount: number;
@@ -52,6 +53,7 @@ export interface ProgramImportExpanded {
   description: string;
   details: string;
   amount: number;
+  status: 'sold' | 'available';
   source: string;
   created_at: string;
   user: User;

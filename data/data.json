@@ -76,6 +76,7 @@
       "loan_officer_id": "m5gr84i90",
       "description": "New listing added",
       "details": "3-bedroom house",
+      "status": "sold",
       "amount": 5000,
       "source": "sales",
       "created_at": "2024-01-01"
@@ -87,6 +88,7 @@
       "loan_officer_id": "m5gr84i91",
       "description": "New listing added",
       "details": "2-bedroom apartment",
+      "status": "sold",
       "amount": 3000,
       "source": "Sales",
       "created_at": "2024-01-02"
@@ -98,6 +100,7 @@
       "loan_officer_id": "m5gr84i92",
       "description": "New mortgage plan",
       "details": "5-year fixed rate",
+      "status": "sold",
       "amount": 150000,
       "source": "loan",
       "created_at": "2024-02-01"
@@ -109,6 +112,7 @@
       "loan_officer_id": "m5gr84i90",
       "description": "New property management service",
       "details": "Maintenance package",
+      "status": "available",
       "amount": 2000,
       "source": "service",
       "created_at": "2024-02-02"
