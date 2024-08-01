@@ -184,10 +184,12 @@ function filterType(type: UserType) {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuCheckboxItem
-              v-for="column in 2"
-              :key="column"
-              class="capitalize">
-              {{ column }}
+              v-for="type in types"
+              :key="type"
+              class="capitalize"
+              :checked="columnFilter.has(type)"
+              @click="filterType(type)">
+              {{ type }}
             </DropdownMenuCheckboxItem>
           </DropdownMenuContent>
         </DropdownMenu>
