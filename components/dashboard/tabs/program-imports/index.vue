@@ -91,9 +91,18 @@ const columns: ColumnDef<ProgramImportExpanded>[] = [
     accessorKey: 'status',
     header: 'Status',
     cell: ({ row }) =>
-      h('div', { class: 'lowercase capitalize' }, [
-        h('span', {}, row.original.status),
-      ]),
+      h(
+        Badge,
+        {
+          class: `capitalize ${
+            row.original.status === 'sold' && 'bg-green-500'
+          }`,
+          variant: row.original.status !== 'sold' ? 'outline' : 'default',
+        },
+        () => {
+          return row.original.status;
+        }
+      ),
   },
   {
     accessorKey: 'user',
@@ -128,7 +137,7 @@ const rowSelection = ref({});
 const expanded = ref<ExpandedState>({});
 
 const table = useVueTable({
-  data,
+  data: data.value,
   columns,
   getCoreRowModel: getCoreRowModel(),
   getPaginationRowModel: getPaginationRowModel(),
@@ -284,7 +293,19 @@ function filterType(type: string) {
               <TableRow v-if="row.getIsExpanded()">
                 <TableCell :colspan="row.getAllCells().length">
                   <Card class="p-4 border-none shadow-none">
-                    <CardTitle class="text-lg"> Program Import </CardTitle>
+                    <CardTitle class="text-lg flex items-center gap-2">
+                      Program Import
+                      <Badge
+                        class="capitalize"
+                        :variant="
+                          row.original.status === 'sold' ? 'default' : 'outline'
+                        "
+                        :class="
+                          row.original.status === 'sold' && 'bg-green-500'
+                        ">
+                        {{ row.original.status }}
+                      </Badge>
+                    </CardTitle>
                     <CardDescription> Program Import details </CardDescription>
                     <CardContent class="mt-8 flex flex-col gap-6 px-0">
                       <Label class="flex gap-5">

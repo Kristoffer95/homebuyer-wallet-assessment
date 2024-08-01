@@ -2,14 +2,23 @@
 import RevenueChart from './revenue-chart.vue';
 import RecentSales from './recent-sales.vue';
 
+const revenue = useRevenue();
 const key = ref(0);
 
 function forceUpdate() {
   key.value++;
 }
+
+const monthRevenue = computed(
+  () =>
+    revenue.monthly_revenue.value?.[revenue.monthly_revenue.value.length - 1]
+);
 </script>
 
 <template>
+  <pre>
+    {{ revenue.monthly_revenue }}
+  </pre>
   <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
     <Card>
       <CardHeader
@@ -28,8 +37,16 @@ function forceUpdate() {
         </svg>
       </CardHeader>
       <CardContent>
-        <div class="text-2xl font-bold">$45,231.89</div>
-        <!-- <p class="text-xs text-muted-foreground">+20.1% from last month</p> -->
+        <div class="text-2xl font-bold">${{ monthRevenue.total }}</div>
+        <p
+          class="text-xs text-muted-foreground"
+          :class="
+            +monthRevenue.total_percent_change < 0
+              ? 'text-red-500'
+              : 'text-muted-foreground'
+          ">
+          {{ monthRevenue.total_percent_change }}% from last month
+        </p>
       </CardContent>
     </Card>
 
@@ -52,8 +69,16 @@ function forceUpdate() {
         </svg>
       </CardHeader>
       <CardContent>
-        <div class="text-2xl font-bold">+2350</div>
-        <!-- <p class="text-xs text-muted-foreground">+180.1% from last month</p> -->
+        <div class="text-2xl font-bold">${{ monthRevenue.sales }}</div>
+        <p
+          class="text-xs"
+          :class="
+            +monthRevenue.sales_percent_change < 0
+              ? 'text-red-500'
+              : 'text-muted-foreground'
+          ">
+          {{ monthRevenue.sales_percent_change }}% from last month
+        </p>
       </CardContent>
     </Card>
 
@@ -70,13 +95,20 @@ function forceUpdate() {
           strokeLinejoin="round"
           strokeWidth="2"
           class="h-4 w-4 text-muted-foreground">
-          <rect width="20" height="14" x="2" y="5" rx="2" />
-          <path d="M2 10h20" />
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
         </svg>
       </CardHeader>
       <CardContent>
-        <div class="text-2xl font-bold">+12,234</div>
-        <!-- <p class="text-xs text-muted-foreground">+19% from last month</p> -->
+        <div class="text-2xl font-bold">${{ monthRevenue.services }}</div>
+        <p
+          class="text-xs text-muted-foreground"
+          :class="
+            +monthRevenue.service_percent_change < 0
+              ? 'text-red-500'
+              : 'text-muted-foreground'
+          ">
+          {{ monthRevenue.service_percent_change }} from last month
+        </p>
       </CardContent>
     </Card>
 
@@ -93,18 +125,27 @@ function forceUpdate() {
           strokeLinejoin="round"
           strokeWidth="2"
           class="h-4 w-4 text-muted-foreground">
-          <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+          <rect width="20" height="14" x="2" y="5" rx="2" />
+          <path d="M2 10h20" />
         </svg>
       </CardHeader>
       <CardContent>
-        <div class="text-2xl font-bold">+573</div>
-        <!-- <p class="text-xs text-muted-foreground">+201 since last hour</p> -->
+        <div class="text-2xl font-bold">{{ monthRevenue.loan }}</div>
+        <p
+          class="text-xs text-muted-foreground"
+          :class="
+            +monthRevenue.loan_percent_change < 0
+              ? 'text-red-500'
+              : 'text-muted-foreground'
+          ">
+          {{ monthRevenue.loan_percent_change }}% from last month
+        </p>
       </CardContent>
     </Card>
   </div>
   <div class="flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-7">
     <Card class="col-span-4">
-      <Button @click="forceUpdate()"> Reload component </Button>
+      <!-- <Button @click="forceUpdate()"> Reload component </Button> -->
       <CardHeader>
         <CardTitle>Revenue Graph</CardTitle>
       </CardHeader>

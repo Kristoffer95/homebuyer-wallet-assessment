@@ -5,9 +5,8 @@ import type {
   Program,
   LoanOfficer,
 } from '~/types/interfaces';
-// import { useData, useUsers, usePrograms, useLoanOfficers } from '~/composables'; // Adjust import paths as necessary
 
-export const useProgramImports = (): ProgramImportExpanded[] => {
+export const useProgramImports = (): ComputedRef<ProgramImportExpanded[]> => {
   const data = useData();
   const users = useUsers();
   const programs = usePrograms();
@@ -41,8 +40,9 @@ export const useProgramImports = (): ProgramImportExpanded[] => {
         details: programImport.details,
         amount: programImport.amount,
         source: programImport.source,
-        created_at: programImport.created_at,
         status: programImport.status,
+        sold_at: programImport.sold_at,
+        created_at: programImport.created_at,
         user,
         program,
         loan_officer,
@@ -52,5 +52,5 @@ export const useProgramImports = (): ProgramImportExpanded[] => {
     })
   );
 
-  return updatedProgramImports.value;
+  return updatedProgramImports;
 };

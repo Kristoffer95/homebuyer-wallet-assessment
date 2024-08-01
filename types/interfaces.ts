@@ -37,6 +37,7 @@ export interface ProgramImport {
   details: string;
   amount: number;
   source: string;
+  sold_at: string;
   created_at: string;
 }
 
@@ -55,6 +56,7 @@ export interface ProgramImportExpanded {
   amount: number;
   status: 'sold' | 'available';
   source: string;
+  sold_at: string;
   created_at: string;
   user: User;
   program: Program;
