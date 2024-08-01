@@ -1,61 +1,47 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import moment from 'moment';
+
+const loanOfficers = useLoanOfficers();
+const programImports = useProgramImports();
+const { month, formatted_month_year } = useCalendarMonthState();
+const users = useUsers();
+
+const filteredYearAndMonth = computed(() =>
+  programImports.value
+    .map((program) => {
+      if (moment(program.sold_at).format('YYYY-MM')) {
+        return program;
+      }
+    })
+    .filter(
+      (program) =>
+        moment(program?.sold_at).format('YYYY-MM') ===
+        formatted_month_year.value
+    )
+);
+
+const data = [
+  {
+    name: 'Users',
+    total: users.length,
+  },
+  {
+    name: 'Loan Officers',
+    total: loanOfficers.length,
+  },
+  {
+    name: `Program Imports (${month.value})`,
+    total: filteredYearAndMonth.value.length,
+  },
+];
+</script>
 
 <template>
-  <div class="space-y-8">
-    <div class="flex items-center">
-      <Avatar class="h-9 w-9">
-        <AvatarImage src="/avatars/01.png" alt="Avatar" />
-        <AvatarFallback>OM</AvatarFallback>
-      </Avatar>
-      <div class="ml-4 space-y-1">
-        <p class="text-sm font-medium leading-none">Olivia Martin</p>
-        <p class="text-sm text-muted-foreground">olivia.martin@email.com</p>
-      </div>
-      <div class="ml-auto font-medium">+$1,999.00</div>
-    </div>
-    <div class="flex items-center">
-      <Avatar class="flex h-9 w-9 items-center justify-center space-y-0 border">
-        <AvatarImage src="/avatars/02.png" alt="Avatar" />
-        <AvatarFallback>JL</AvatarFallback>
-      </Avatar>
-      <div class="ml-4 space-y-1">
-        <p class="text-sm font-medium leading-none">Jackson Lee</p>
-        <p class="text-sm text-muted-foreground">jackson.lee@email.com</p>
-      </div>
-      <div class="ml-auto font-medium">+$39.00</div>
-    </div>
-    <div class="flex items-center">
-      <Avatar class="h-9 w-9">
-        <AvatarImage src="/avatars/03.png" alt="Avatar" />
-        <AvatarFallback>IN</AvatarFallback>
-      </Avatar>
-      <div class="ml-4 space-y-1">
-        <p class="text-sm font-medium leading-none">Isabella Nguyen</p>
-        <p class="text-sm text-muted-foreground">isabella.nguyen@email.com</p>
-      </div>
-      <div class="ml-auto font-medium">+$299.00</div>
-    </div>
-    <div class="flex items-center">
-      <Avatar class="h-9 w-9">
-        <AvatarImage src="/avatars/04.png" alt="Avatar" />
-        <AvatarFallback>WK</AvatarFallback>
-      </Avatar>
-      <div class="ml-4 space-y-1">
-        <p class="text-sm font-medium leading-none">William Kim</p>
-        <p class="text-sm text-muted-foreground">will@email.com</p>
-      </div>
-      <div class="ml-auto font-medium">+$99.00</div>
-    </div>
-    <div class="flex items-center">
-      <Avatar class="h-9 w-9">
-        <AvatarImage src="/avatars/05.png" alt="Avatar" />
-        <AvatarFallback>SD</AvatarFallback>
-      </Avatar>
-      <div class="ml-4 space-y-1">
-        <p class="text-sm font-medium leading-none">Sofia Davis</p>
-        <p class="text-sm text-muted-foreground">sofia.davis@email.com</p>
-      </div>
-      <div class="ml-auto font-medium">+$39.00</div>
-    </div>
-  </div>
+  <DonutChart
+    class="!h-64"
+    index="name"
+    :category="'total'"
+    :data="data"
+    :type="'pie'"
+    :colors="['#A2A7A5', '#DAE2DF', '#001021']" />
 </template>

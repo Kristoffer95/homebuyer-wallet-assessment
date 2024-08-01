@@ -317,6 +317,12 @@ function filterType(type: string) {
                         </span>
                       </Label>
                       <Label class="flex gap-5">
+                        Program:
+                        <Badge class="whitespace-nowrap">
+                          {{ row.original.program.name }}
+                        </Badge>
+                      </Label>
+                      <Label class="flex gap-5">
                         Title:
                         <span class="font-normal">
                           {{ row.original.details }}

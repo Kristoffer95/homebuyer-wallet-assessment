@@ -144,7 +144,6 @@ const monthRevenue = computed(() =>
   </div>
   <div class="flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-7">
     <Card class="col-span-4">
-      <!-- <Button @click="forceUpdate()"> Reload component </Button> -->
       <CardHeader>
         <CardTitle>Revenue Graph</CardTitle>
       </CardHeader>
@@ -154,8 +153,10 @@ const monthRevenue = computed(() =>
     </Card>
     <Card class="col-span-3">
       <CardHeader>
-        <CardTitle>Recent Sales</CardTitle>
-        <CardDescription> You made 265 sales this month. </CardDescription>
+        <CardTitle>General Graph</CardTitle>
+        <CardDescription>
+          Program Imports (Monthly) | Users | Loan Officers.
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <RecentSales />
