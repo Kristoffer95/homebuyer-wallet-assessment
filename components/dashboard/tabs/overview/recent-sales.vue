@@ -37,10 +37,6 @@ watchEffect(() => {
 </script>
 
 <template>
-  <pre>
-    {{ data }}
-  </pre>
-
   <LazyDonutChart
     class="!h-64"
     index="name"
