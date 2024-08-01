@@ -17,7 +17,7 @@ const monthRevenue = computed(
 
 <template>
   <pre>
-    {{ revenue.monthly_revenue }}
+    {{ revenue }}
   </pre>
   <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
     <Card>
