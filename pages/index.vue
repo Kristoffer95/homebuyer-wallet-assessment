@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import moment from 'moment';
+
 const activeTab = ref('overview');
+const { month } = useCalendarMonthState();
 
 function setSelectedTab(tab: string) {
   activeTab.value = tab;
@@ -29,18 +32,17 @@ const tabItems = ref([
   <div class="flex-col md:flex">
     <div class="border-b">
       <div class="flex h-16 items-center px-4 container">
-        <DashboardTeamSwitcher />
+        <h2 class="px-6 text-2xl font-bold tracking-tight">Homebuyer Wallet</h2>
+
         <div class="ml-auto flex items-center space-x-4">
           <DashboardUserNav />
         </div>
       </div>
     </div>
     <div class="flex-1 space-y-4 p-8 pt-6 container">
-      <div class="items-center justify-between space-y-2 hidden md:flex">
-        <h2 class="text-3xl font-bold tracking-tight">Dashboard</h2>
+      <div class="items-center justify-end space-y-2 hidden md:flex">
         <div class="flex items-center space-x-2">
           <DashboardDateRangePicker />
-          <Button>Download</Button>
         </div>
       </div>
       <Tabs class="md:space-y-4" v-model:model-value="activeTab">

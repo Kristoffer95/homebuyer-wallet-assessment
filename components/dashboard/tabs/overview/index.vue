@@ -2,6 +2,7 @@
 import RevenueChart from './revenue-chart.vue';
 import RecentSales from './recent-sales.vue';
 
+const currentMonth = useCalendarMonthState();
 const revenue = useRevenue();
 const key = ref(0);
 
@@ -9,16 +10,14 @@ function forceUpdate() {
   key.value++;
 }
 
-const monthRevenue = computed(
-  () =>
-    revenue.monthly_revenue.value?.[revenue.monthly_revenue.value.length - 1]
+const monthRevenue = computed(() =>
+  revenue.monthly_revenue.value.find(
+    ({ month }) => month === currentMonth.formatted_month_year.value
+  )
 );
 </script>
 
 <template>
-  <pre>
-    {{ revenue }}
-  </pre>
   <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
     <Card>
       <CardHeader
@@ -37,15 +36,15 @@ const monthRevenue = computed(
         </svg>
       </CardHeader>
       <CardContent>
-        <div class="text-2xl font-bold">${{ monthRevenue.total }}</div>
+        <div class="text-2xl font-bold">${{ monthRevenue?.total }}</div>
         <p
           class="text-xs text-muted-foreground"
           :class="
-            +monthRevenue.total_percent_change < 0
+            monthRevenue && +monthRevenue?.total_percent_change < 0
               ? 'text-red-500'
               : 'text-muted-foreground'
           ">
-          {{ monthRevenue.total_percent_change }}% from last month
+          {{ monthRevenue?.total_percent_change }}% from last month
         </p>
       </CardContent>
     </Card>
@@ -69,15 +68,15 @@ const monthRevenue = computed(
         </svg>
       </CardHeader>
       <CardContent>
-        <div class="text-2xl font-bold">${{ monthRevenue.sales }}</div>
+        <div class="text-2xl font-bold">${{ monthRevenue?.sales }}</div>
         <p
           class="text-xs"
           :class="
-            +monthRevenue.sales_percent_change < 0
+            monthRevenue && +monthRevenue?.sales_percent_change < 0
               ? 'text-red-500'
               : 'text-muted-foreground'
           ">
-          {{ monthRevenue.sales_percent_change }}% from last month
+          {{ monthRevenue?.sales_percent_change }}% from last month
         </p>
       </CardContent>
     </Card>
@@ -99,15 +98,15 @@ const monthRevenue = computed(
         </svg>
       </CardHeader>
       <CardContent>
-        <div class="text-2xl font-bold">${{ monthRevenue.services }}</div>
+        <div class="text-2xl font-bold">${{ monthRevenue?.services }}</div>
         <p
           class="text-xs text-muted-foreground"
           :class="
-            +monthRevenue.service_percent_change < 0
+            monthRevenue && +monthRevenue?.service_percent_change < 0
               ? 'text-red-500'
               : 'text-muted-foreground'
           ">
-          {{ monthRevenue.service_percent_change }} from last month
+          {{ monthRevenue?.service_percent_change }} from last month
         </p>
       </CardContent>
     </Card>
@@ -130,15 +129,15 @@ const monthRevenue = computed(
         </svg>
       </CardHeader>
       <CardContent>
-        <div class="text-2xl font-bold">{{ monthRevenue.loan }}</div>
+        <div class="text-2xl font-bold">{{ monthRevenue?.loan }}</div>
         <p
           class="text-xs text-muted-foreground"
           :class="
-            +monthRevenue.loan_percent_change < 0
+            monthRevenue && +monthRevenue?.loan_percent_change < 0
               ? 'text-red-500'
               : 'text-muted-foreground'
           ">
-          {{ monthRevenue.loan_percent_change }}% from last month
+          {{ monthRevenue?.loan_percent_change }}% from last month
         </p>
       </CardContent>
     </Card>

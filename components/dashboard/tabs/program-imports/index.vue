@@ -51,7 +51,7 @@ const columns: ColumnDef<ProgramImportExpanded>[] = [
     accessorKey: 'program',
     header: 'Program',
     cell: ({ row }) =>
-      h(Badge, { class: 'capitalize' }, () => {
+      h(Badge, { class: 'capitalize whitespace-nowrap' }, () => {
         return row.original.program.name;
       }),
   },
@@ -226,10 +226,12 @@ function filterType(type: string) {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuCheckboxItem
-              v-for="column in 2"
-              :key="column"
-              class="capitalize">
-              {{ column }}
+              v-for="type in types"
+              :key="type"
+              class="capitalize"
+              :checked="columnFilter.has(type.toLocaleLowerCase())"
+              @click="filterType(type)">
+              {{ type }}
             </DropdownMenuCheckboxItem>
           </DropdownMenuContent>
         </DropdownMenu>

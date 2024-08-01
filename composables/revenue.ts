@@ -1,6 +1,8 @@
 import moment from 'moment-timezone';
+import { computed } from 'vue';
 
 export const useRevenue = () => {
+  const { formatted_month_year } = useCalendarMonthState();
   const data = useData();
   const programImports = useProgramImports();
 
@@ -34,8 +36,11 @@ export const useRevenue = () => {
   const getPast12Months = () => {
     const months = [];
     const locale = moment.tz.guess();
+    const startMonth = moment(formatted_month_year.value, 'YYYY-MM');
     for (let i = 0; i < 12; i++) {
-      months.push(moment().tz(locale).subtract(i, 'months').startOf('month'));
+      months.push(
+        moment(startMonth).tz(locale).subtract(i, 'months').startOf('month')
+      );
     }
     return months.reverse();
   };
