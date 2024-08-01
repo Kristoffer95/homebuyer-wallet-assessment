@@ -38,7 +38,7 @@ onMounted(updateMonth);
           :variant="'outline'"
           :class="
             cn(
-              'w-[150px] justify-start text-left font-normal',
+              'w-[200px] justify-center text-left font-normal',
               !currentMonth && 'text-muted-foreground'
             )
           ">
