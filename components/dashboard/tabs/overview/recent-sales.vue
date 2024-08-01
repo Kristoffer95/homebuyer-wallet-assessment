@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { computed, watchEffect } from 'vue';
 import moment from 'moment';
+// import { useLoanOfficers, useProgramImports, useUsers } from '@/composables';
+// import { useCalendarMonthState } from '@/composables/useCalendarMonthState';
 
 const loanOfficers = useLoanOfficers();
 const programImports = useProgramImports();
@@ -7,20 +10,13 @@ const { month, formatted_month_year } = useCalendarMonthState();
 const users = useUsers();
 
 const filteredYearAndMonth = computed(() =>
-  programImports.value
-    .map((program) => {
-      if (moment(program.sold_at).format('YYYY-MM')) {
-        return program;
-      }
-    })
-    .filter(
-      (program) =>
-        moment(program?.sold_at).format('YYYY-MM') ===
-        formatted_month_year.value
-    )
+  programImports.value.filter(
+    (program) =>
+      moment(program.sold_at).format('YYYY-MM') === formatted_month_year.value
+  )
 );
 
-const data = [
+const data = computed(() => [
   {
     name: 'Users',
     total: users.length,
@@ -33,11 +29,19 @@ const data = [
     name: `Program Imports (${month.value})`,
     total: filteredYearAndMonth.value.length,
   },
-];
+]);
+
+watchEffect(() => {
+  data.value;
+});
 </script>
 
 <template>
-  <DonutChart
+  <pre>
+    {{ data }}
+  </pre>
+
+  <LazyDonutChart
     class="!h-64"
     index="name"
     :category="'total'"
